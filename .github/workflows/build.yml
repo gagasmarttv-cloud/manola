@@ -1,60 +1,20 @@
-name: Build JAR (Ant)
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Install Ant and show versions
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ant
-          java -version
-          ant -version
-
-      - name: Show project structure
-        run: |
-          pwd
-          ls -la
-          echo "---- Ant targets ----"
-          ant -p || true
-
-      - name: Build with Ant (verbose, UTF-8)
+      - name: Build with Ant (try common targets, verbose, UTF-8)
         run: |
           set -e
-          ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log
-
-      - name: Upload build log (always)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
-
-      - name: Upload JARs (common locations)
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-jar
-          path: |
-            dist/**/*.jar
-            build/**/*.jar
-            target/**/*.jar
-            **/build/libs/**/*.jar
+          echo "Listing Ant targets..."
+          ant -p || true
+          echo "---- Attempt 1: clean jar ----"
+          if ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log; then
+            echo "Built with target 'jar'"
+          else
+            echo "---- Attempt 2: clean dist ----"
+            if ant -noinput -Dfile.encoding=UTF-8 -v clean dist | tee -a build.log; then
+              echo "Built with target 'dist'"
+            else
+              echo "---- Attempt 3: clean package ----"
+              ant -noinput -Dfile.encoding=UTF-8 -v clean package | tee -a build.log
+              echo "Built with target 'package'"
+            fi
+          fi
+          echo "---- Look for 'destfile=' lines (where jars get written) ----"
+          grep -i "destfile=.*\.jar" -n build.log || true
