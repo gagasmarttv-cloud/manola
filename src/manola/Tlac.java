@@ -70,16 +70,16 @@ public class Tlac implements Printable{
             Font boldFont = new Font ("serif", Font.BOLD, 12);
 
             g2d.setFont(boldFont);
-            g2d.drawString("Z·loûn· zmluva ËÌslo: "+zmluva.ID  ,120,10);
+            g2d.drawString("Z√°lo≈æn√° zmluva √®√≠slo: "+zmluva.ID  ,120,10);
             g2d.setFont(normalFont);
-            g2d.drawString("O poskytnutÌ pÙûiËky v z·loûnom pr·ve "  ,150,22);
+            g2d.drawString("O poskytnut√≠ p√¥≈æi√®ky v z√°lo≈ænom pr√°ve "  ,150,22);
             
-            g2d.drawString("Uzatvoren· zmluva v zmysle ß657 a nasl. ß121 ods 3 a ß544 aû ß545 obËianskeho z·konnÌka"  ,0,40);
-            g2d.drawString("medzi MANOLA.s.r.o. a zastupen˝m pracovnikom z·loûne p. ºubomÌr Lamoö (Veriteæ)."  ,0,52);
+            g2d.drawString("Uzatvoren√° zmluva v zmysle ¬ß657 a nasl. ¬ß121 ods 3 a ¬ß544 a≈æ ¬ß545 ob√®ianskeho z√°konn√≠ka"  ,0,40);
+            g2d.drawString("medzi MANOLA.s.r.o. a zastupen√Ωm pracovnikom z√°lo≈æne p. Peter Gasparik (Veritel)."  ,0,52);
             
-            g2d.drawString("'DlûnÌk' p·n-pani: ", 0, 70);
-            g2d.drawString("RodnÈ ËÌslo: ",0,82);
-            g2d.drawString("»Ìslo OP:",0,94);
+            g2d.drawString("'Dl≈æn√≠k' p√°n-pani: ", 0, 70);
+            g2d.drawString("Rodn√© √®√≠slo: ",0,82);
+            g2d.drawString("√à√≠slo OP:",0,94);
             g2d.drawString("Bytom: ", 0, 106);
            
             g2d.drawString(zakaznik.meno+" "+zakaznik.priezvisko, 200, 70);
@@ -89,46 +89,46 @@ public class Tlac implements Printable{
            
              switch(cal_zmluva.get(Calendar.YEAR)){
                 case 2008:
-                    g2d.drawString("Veriteæ poskytne dlûnÌkovi pÙûiËku v sume: "+zmluva.hodnota+" SK ("+Math.round(((float)zmluva.hodnota/30.126)*100f)/100f+" Ä) v peniazoch.", 0, 130);
+                    g2d.drawString("Verite¬æ poskytne dl≈æn√≠kovi p√¥≈æi√®ku v sume: "+zmluva.hodnota+" SK ("+Math.round(((float)zmluva.hodnota/30.126)*100f)/100f+" ‚Ç¨) v peniazoch.", 0, 130);
                     break;   
                 case 2009:
-                    g2d.drawString("Veriteæ poskytne dlûnÌkovi pÙûiËku v sume: "+zmluva.hodnota+" Ä ("+Math.round(((float)zmluva.hodnota*30.126)*100f)/100f+" SK) v peniazoch.", 0, 130);
+                    g2d.drawString("Verite¬æ poskytne dl≈æn√≠kovi p√¥≈æi√®ku v sume: "+zmluva.hodnota+" ‚Ç¨ ("+Math.round(((float)zmluva.hodnota*30.126)*100f)/100f+" SK) v peniazoch.", 0, 130);
                     break;
                 default:
-                    g2d.drawString("Veriteæ poskytne dlûnÌkovi pÙûiËku v sume: "+zmluva.hodnota+" Ä v peniazoch.", 0, 130);
+                    g2d.drawString("Verite¬æ poskytne dl≈æn√≠kovi p√¥≈æi√®ku v sume: "+zmluva.hodnota+" ‚Ç¨ v peniazoch.", 0, 130);
                     break;
             }
             
             
              switch(cal_zmluva.get(Calendar.YEAR)){
                 case 2008:
-                    g2d.drawString("Poskytnut· suma: "+zmluva.hodnota+" SK ("+Math.round(((float)zmluva.hodnota/30.126)*100f)/100f+" Ä) v peniazoch.", 0, 570);
+                    g2d.drawString("Poskytnut√° suma: "+zmluva.hodnota+" SK ("+Math.round(((float)zmluva.hodnota/30.126)*100f)/100f+" ‚Ç¨) v peniazoch.", 0, 570);
                     break;   
                 case 2009:
-                    g2d.drawString("Poskytnut· suma: "+zmluva.hodnota+" Ä ("+Math.round(((float)zmluva.hodnota*30.126)*100f)/100f+" SK) v peniazoch.", 0, 570);
+                    g2d.drawString("Poskytnut√° suma: "+zmluva.hodnota+" ‚Ç¨ ("+Math.round(((float)zmluva.hodnota*30.126)*100f)/100f+" SK) v peniazoch.", 0, 570);
                     break;
                 default:
-                    g2d.drawString("Poskytnut· suma: "+zmluva.hodnota+" Ä v peniazoch.", 0, 570);
+                    g2d.drawString("Poskytnut√° suma: "+zmluva.hodnota+" ‚Ç¨ v peniazoch.", 0, 570);
                     break;
             }
              
-            g2d.drawString("Za poskytnut˙ pÙûiËku odovzd· dlûnÌk veriteæovi do z·lohy: ", 0, 150);
+            g2d.drawString("Za poskytnut√∫ p√¥≈æi√®ku odovzd√° dl≈æn√≠k verite¬æovi do z√°lohy: ", 0, 150);
             g2d.drawString(""+zmluva.predmet, 0, 162);
             
             
             switch(cal.get(Calendar.YEAR)){
                 case 2008:
-                    g2d.drawString("ktor˙ bude veriteæ starostlivo opatrovaù, za Ëo mu prisl˙cha suma vo v˝öke 20 SK (0.66 Ä).", 0, 180);
+                    g2d.drawString("ktor√∫ bude verite¬æ starostlivo opatrova¬ù, za √®o mu prisl√∫cha suma vo v√Ω≈°ke 20 SK (0.66 ‚Ç¨).", 0, 180);
                     break;   
                 case 2009:
-                    g2d.drawString("ktor˙ bude veriteæ starostlivo opatrovaù, za Ëo mu prisl˙cha suma vo v˝öke 0.66 Ä (20 SK).", 0, 180);
+                    g2d.drawString("ktor√∫ bude verite¬æ starostlivo opatrova¬ù, za √®o mu prisl√∫cha suma vo v√Ω≈°ke 0.66 ‚Ç¨ (20 SK).", 0, 180);
                     break;
                 default:
-                    g2d.drawString("ktor˙ bude veriteæ starostlivo opatrovaù, za Ëo mu prisl˙cha suma vo v˝öke 0.66 Ä.", 0, 180);
+                    g2d.drawString("ktor√∫ bude verite¬æ starostlivo opatrova¬ù, za √®o mu prisl√∫cha suma vo v√Ω≈°ke 0.66 ‚Ç¨.", 0, 180);
                     break;
             }
             
-            g2d.drawString("DlûnÌk sa zav‰zuje veriteæovi pÙûiËku vr·tiù spolu s ˙rokom v t˝chto spl·tkach a term˝noch nasledovne: ",0, 200);
+            g2d.drawString("Dl≈æn√≠k sa zav√§zuje verite¬æovi p√¥≈æi√®ku vr√°ti¬ù spolu s √∫rokom v t√Ωchto spl√°tkach a term√Ωnoch nasledovne: ",0, 200);
             
             
             
@@ -138,8 +138,8 @@ public class Tlac implements Printable{
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 212);
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 600);
             
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok1)+"%", 150, 212);
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok1)+"%", 150, 600);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok1)+"%", 150, 212);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok1)+"%", 150, 600);
             
             cal_zmluva.add(Calendar.DAY_OF_MONTH,1);
             g2d.drawString("od: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 0, 224);
@@ -148,8 +148,8 @@ public class Tlac implements Printable{
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal.get(Calendar.YEAR), 75, 224);
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal.get(Calendar.YEAR), 75, 612);
             
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok2)+"%", 150, 224);
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok2)+"%", 150, 612);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok2)+"%", 150, 224);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok2)+"%", 150, 612);
             
             cal_zmluva.add(Calendar.DAY_OF_MONTH,1);
             g2d.drawString("od: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 0, 236);
@@ -158,8 +158,8 @@ public class Tlac implements Printable{
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 236);
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 624);
             
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok3)+"%", 150, 236);
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok3)+"%", 150, 624);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok3)+"%", 150, 236);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok3)+"%", 150, 624);
             
             cal_zmluva.add(Calendar.DAY_OF_MONTH,1);
             g2d.drawString("od: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 0, 248);
@@ -168,8 +168,8 @@ public class Tlac implements Printable{
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 248);
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 636);
             
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok4)+"%", 150, 248);
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok4)+"%", 150, 636);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok4)+"%", 150, 248);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok4)+"%", 150, 636);
             
             cal_zmluva.add(Calendar.DAY_OF_MONTH,1);
             g2d.drawString("od: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 0, 260);
@@ -178,8 +178,8 @@ public class Tlac implements Printable{
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 260);
             g2d.drawString("do: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR), 75, 648);
             
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok5)+"%", 150, 260);
-            g2d.drawString("˙rok: "+Math.round(zmluva.urok5)+"%", 150, 648);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok5)+"%", 150, 260);
+            g2d.drawString("√∫rok: "+Math.round(zmluva.urok5)+"%", 150, 648);
             
                float spolu =0;
                float poplatok = 0.0f;
@@ -196,16 +196,16 @@ public class Tlac implements Printable{
                //koli prechodu na euro
                switch(zmluva.datum.getYear()){
                    case 2008:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,212);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,600);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,212);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,600);
                        break;
                    case 2009:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,212);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,600);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,212);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,600);
                        break;
                    default:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,212);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,600);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,212);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,600);
                        break;
                        
                }
@@ -214,16 +214,16 @@ public class Tlac implements Printable{
                //koli prechodu na euro
                switch(zmluva.datum.getYear()){
                    case 2008:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,224);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,612);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,224);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,612);
                        break;
                    case 2009:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,224);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,612);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,224);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,612);
                        break;
                    default:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,224);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,612);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,224);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,612);
                        break;
                }
                
@@ -231,16 +231,16 @@ public class Tlac implements Printable{
                //koli prechodu na euro
                switch(zmluva.datum.getYear()){
                    case 2008:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,236);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,624);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,236);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,624);
                        break;
                    case 2009:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,236);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,624);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,236);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,624);
                        break;
                    default:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,236);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,624);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,236);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,624);
                        break;
                }
                
@@ -248,16 +248,16 @@ public class Tlac implements Printable{
                //koli prechodu na euro
                switch(zmluva.datum.getYear()){
                    case 2008:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,248);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,636);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,248);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,636);
                        break;
                    case 2009:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,248);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,636);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,248);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,636);
                        break;
                    default:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,248);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,636);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,248);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,636);
                        break;
                }
                
@@ -266,66 +266,66 @@ public class Tlac implements Printable{
                //koli prechodu na euro
                switch(zmluva.datum.getYear()){
                    case 2008:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,260);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" Ä)", 225,648);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,260);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" SK"+" ("+(float)Math.round((spolu/30.126f)*100)/100f+" ‚Ç¨)", 225,648);
                        break;
                    case 2009:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,260);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,648);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,260);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨"+" ("+(float)Math.round((spolu*30.126f)*100)/100f+" SK)", 225,648);
                        break;
                    default:
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,260);
-                       g2d.drawString((float)Math.round(spolu*100)/100f+" Ä", 225,648);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,260);
+                       g2d.drawString((float)Math.round(spolu*100)/100f+" ‚Ç¨", 225,648);
                        break;
                }
                
                
-               g2d.drawString("DlûÌk prehlasuje, ûe vec, ktor˙ poskytol do z·lohy je jeho v˝luËn˝m vlastnÌctvom a je opr·vnen˝ ju zaloûiù.", 0,290);
+               g2d.drawString("Dl≈æ√≠k prehlasuje, ≈æe vec, ktor√∫ poskytol do z√°lohy je jeho v√Ωlu√®n√Ωm vlastn√≠ctvom a je opr√°vnen√Ω ju zalo≈æi¬ù.", 0,290);
                
                switch(cal.get(Calendar.YEAR)){
                    case 2008:
-                        g2d.drawString("Za stratu ˙striûku a jeko vyhæadanie v evidencii ˙Ëtujeme 10 SK (0.33 Ä).", 0,310);
+                        g2d.drawString("Za stratu √∫stri≈æku a jeko vyh¬æadanie v evidencii √∫√®tujeme 10 SK (0.33 ‚Ç¨).", 0,310);
                         break;
                    case 2009:
-                        g2d.drawString("Za stratu ˙striûku a jeko vyhæadanie v evidencii ˙Ëtujeme 0.33 Ä (10 SK).", 0,310);
+                        g2d.drawString("Za stratu √∫stri≈æku a jeko vyh¬æadanie v evidencii √∫√®tujeme 0.33 ‚Ç¨ (10 SK).", 0,310);
                         break;
                    default:
-                        g2d.drawString("Za stratu ˙striûku a jeko vyhæadanie v evidencii ˙Ëtujeme 0.33 Ä.", 0,310);
+                        g2d.drawString("Za stratu √∫stri≈æku a jeko vyh¬æadanie v evidencii √∫√®tujeme 0.33 ‚Ç¨.", 0,310);
                         break;
                }
                
-             g2d.drawString("⁄plnÈ znenie podmienok sa nach·dza v priestoroch z·loûne.", 0,330);  
+             g2d.drawString("√öpln√© znenie podmienok sa nach√°dza v priestoroch z√°lo≈æne.", 0,330);  
              
-             g2d.drawString("O tom Ëi sa urËit· vec mÙûe staù predmetom z·loûnej zmluvy rozhoduje poveren˝ pracovnÌk z·loûne.", 0,350);
-             g2d.drawString("Predmetom z·loûnej zmluvy nemÙûu byù poökodenÈ a nekompletnÈ veci ako aj veci, ktorÈ nie s˙ funkËnÈ.", 0,362);
+             g2d.drawString("O tom √®i sa ur√®it√° vec m√¥≈æe sta¬ù predmetom z√°lo≈ænej zmluvy rozhoduje poveren√Ω pracovn√≠k z√°lo≈æne.", 0,350);
+             g2d.drawString("Predmetom z√°lo≈ænej zmluvy nem√¥≈æu by¬ù po≈°koden√© a nekompletn√© veci ako aj veci, ktor√© nie s√∫ funk√®n√©.", 0,362);
               
             switch(cal.get(Calendar.YEAR)){
                 case 2008:
-                    g2d.drawString("DlûnÌk potvrdzuej prevzatie pÙûiËky: "+zmluva.hodnota+" SK ("+(float)Math.round((zmluva.hodnota/30.126)*100f)/100+" Ä) v peniazoch.", 0, 390);
+                    g2d.drawString("Dl≈æn√≠k potvrdzuej prevzatie p√¥≈æi√®ky: "+zmluva.hodnota+" SK ("+(float)Math.round((zmluva.hodnota/30.126)*100f)/100+" ‚Ç¨) v peniazoch.", 0, 390);
                     break;   
                 case 2009:
-                    g2d.drawString("DlûnÌk potvrdzuej prevzatie pÙûiËky: "+zmluva.hodnota+" Ä ("+(float)Math.round((zmluva.hodnota*30.126)*100f)/100+" SK) v peniazoch.", 0, 380);
+                    g2d.drawString("Dl≈æn√≠k potvrdzuej prevzatie p√¥≈æi√®ky: "+zmluva.hodnota+" ‚Ç¨ ("+(float)Math.round((zmluva.hodnota*30.126)*100f)/100+" SK) v peniazoch.", 0, 380);
                     break;
                 default:
-                    g2d.drawString("DlûnÌk potvrdzuej prevzatie pÙûiËky: "+zmluva.hodnota+" Ä v peniazoch.", 0, 380);
+                    g2d.drawString("Dl≈æn√≠k potvrdzuej prevzatie p√¥≈æi√®ky: "+zmluva.hodnota+" ‚Ç¨ v peniazoch.", 0, 380);
                     break;
             }
               
             g2d.drawString("V Martine : "+zmluva.datum.getDate()+"."+(zmluva.datum.getMonth()+1)+"."+zmluva.datum.getYear(), 0, 430);
             
             g2d.drawString("..............................         .............................." , 200, 430);
-            g2d.drawString("          Veriteæ                                     DlûnÌk        " , 200, 440);
+            g2d.drawString("          Verite¬æ                                     Dl≈æn√≠k        " , 200, 440);
             
-            g2d.drawString("Potvrdzujem prevzatie veci bez nedostatkov dÚa ......................................................................." , 0, 460);
+            g2d.drawString("Potvrdzujem prevzatie veci bez nedostatkov d√≤a ......................................................................." , 0, 460);
             g2d.drawString("....................................................................................................................................................." , 0, 472);
             g2d.drawString("Podpis" , 250, 484);
             
             g2d.drawString("__________________________________________________________________________________________________________________________________________________" , 0, 520);
             
-            g2d.drawString("Z·loûn· zmluva ËÌslo: "+zmluva.ID  ,0,550);
+            g2d.drawString("Z√°lo≈æn√° zmluva √®√≠slo: "+zmluva.ID  ,0,550);
             
-            g2d.drawString("Zaloûen· dÚa: "+zmluva.datum.getDate()+"."+(zmluva.datum.getMonth()+1)+"."+zmluva.datum.getYear()  ,250,550);
-            g2d.drawString("Posledn˝ deÚ v˝beru: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR)  ,250,570);
+            g2d.drawString("Zalo≈æen√° d√≤a: "+zmluva.datum.getDate()+"."+(zmluva.datum.getMonth()+1)+"."+zmluva.datum.getYear()  ,250,550);
+            g2d.drawString("Posledn√Ω de√≤ v√Ωberu: "+cal_zmluva.get(Calendar.DAY_OF_MONTH)+"."+(cal_zmluva.get(Calendar.MONTH)+1)+"."+cal_zmluva.get(Calendar.YEAR)  ,250,570);
             return(PAGE_EXISTS);
         }
         else{
