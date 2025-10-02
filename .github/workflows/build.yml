@@ -1,20 +1,7 @@
-      - name: Build with Ant (try common targets, verbose, UTF-8)
-        run: |
-          set -e
-          echo "Listing Ant targets..."
-          ant -p || true
-          echo "---- Attempt 1: clean jar ----"
-          if ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log; then
-            echo "Built with target 'jar'"
-          else
-            echo "---- Attempt 2: clean dist ----"
-            if ant -noinput -Dfile.encoding=UTF-8 -v clean dist | tee -a build.log; then
-              echo "Built with target 'dist'"
-            else
-              echo "---- Attempt 3: clean package ----"
-              ant -noinput -Dfile.encoding=UTF-8 -v clean package | tee -a build.log
-              echo "Built with target 'package'"
-            fi
-          fi
-          echo "---- Look for 'destfile=' lines (where jars get written) ----"
-          grep -i "destfile=.*\.jar" -n build.log || true
+name: ci
+on: push
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ok
