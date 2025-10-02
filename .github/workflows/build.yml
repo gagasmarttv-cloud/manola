@@ -1,48 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="ManolaApp" default="jar" basedir=".">
+name: Build JAR (Ant)
 
-  <!-- Folders -->
-  <property name="src.dir"   value="src"/>
-  <property name="build.dir" value="build/classes"/>
-  <property name="dist.dir"  value="dist"/>
-  <property name="lib.dir"   value="lib"/>
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-  <!-- Classpath: include all JARs under lib/ -->
-  <path id="project.classpath">
-    <fileset dir="${lib.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-  <!-- Clean -->
-  <target name="clean">
-    <delete dir="${build.dir}"/>
-    <delete dir="${dist.dir}"/>
-  </target>
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  <!-- Compile with UTF-8 -->
-  <target name="compile">
-    <mkdir dir="${build.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${build.dir}"
-           includeantruntime="false" debug="true"
-           source="1.8" target="1.8" encoding="UTF-8">
-      <classpath refid="project.classpath"/>
-      <!-- If you need Java 11/17, change source/target to 11 or 17 -->
-    </javac>
-  </target>
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'   # change to '11' or '21' if needed
 
-  <!-- Package JAR with manifest -->
-  <target name="jar" depends="compile">
-    <mkdir dir="${dist.dir}"/>
-    <jar destfile="${dist.dir}/ManolaApp.jar" basedir="${build.dir}">
-      <manifest>
-        <!-- Put your main class here (package.ClassName) -->
-        <attribute name="Main-Class" value="manola.Tlac"/>
-        <!-- Runtime classpath: list jars in lib/ (space-separated).
-             If none needed, you can keep just 'lib/' so relative path works. -->
-        <attribute name="Class-Path" value="lib/"/>
-      </manifest>
-    </jar>
-  </target>
+      - name: Install Ant and show versions
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ant
+          java -version
+          ant -version
 
-</project>
+      - name: Show project structure
+        run: |
+          pwd
+          ls -la
+          echo "---- Ant targets ----"
+          ant -p || true
+
+      - name: Build with Ant (verbose, UTF-8)
+        run: |
+          set -e
+          ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log
+
+      - name: Upload build log (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+
+      - name: Upload JAR artifact (if success)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: dist/*.jar
