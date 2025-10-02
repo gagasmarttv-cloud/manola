@@ -1,15 +1,52 @@
+name: Build JAR (Ant)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Ant and show versions
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ant
+          java -version
+          ant -version
+
+      - name: Show project structure
+        run: |
+          pwd
+          ls -la
+          echo "---- Ant targets ----"
+          ant -p || true
+
+      - name: Build with Ant (verbose, UTF-8)
+        run: |
+          set -e
+          ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log
+
       - name: Upload build log (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build.log
-
-      - name: List any JARs that were built
-        if: success()
-        run: |
-          echo "Searching for JARs..."
-          find . -type f -name "*.jar" -not -path "./lib/*" -print | sort || true
 
       - name: Upload JARs (common locations)
         if: success()
