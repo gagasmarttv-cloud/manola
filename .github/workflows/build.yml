@@ -1,32 +1,48 @@
-name: Build JAR (Ant)
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ManolaApp" default="jar" basedir=".">
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  <!-- Folders -->
+  <property name="src.dir"   value="src"/>
+  <property name="build.dir" value="build/classes"/>
+  <property name="dist.dir"  value="dist"/>
+  <property name="lib.dir"   value="lib"/>
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  <!-- Classpath: include all JARs under lib/ -->
+  <path id="project.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  <!-- Clean -->
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"   # change to 11 or 21 if your code needs it
+  <!-- Compile with UTF-8 -->
+  <target name="compile">
+    <mkdir dir="${build.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${build.dir}"
+           includeantruntime="false" debug="true"
+           source="1.8" target="1.8" encoding="UTF-8">
+      <classpath refid="project.classpath"/>
+      <!-- If you need Java 11/17, change source/target to 11 or 17 -->
+    </javac>
+  </target>
 
-      - name: Build with Ant
-        run: |
-          ant -noinput -buildfile build.xml clean jar
+  <!-- Package JAR with manifest -->
+  <target name="jar" depends="compile">
+    <mkdir dir="${dist.dir}"/>
+    <jar destfile="${dist.dir}/ManolaApp.jar" basedir="${build.dir}">
+      <manifest>
+        <!-- Put your main class here (package.ClassName) -->
+        <attribute name="Main-Class" value="manola.Tlac"/>
+        <!-- Runtime classpath: list jars in lib/ (space-separated).
+             If none needed, you can keep just 'lib/' so relative path works. -->
+        <attribute name="Class-Path" value="lib/"/>
+      </manifest>
+    </jar>
+  </target>
 
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-jar
-          path: |
-            dist/*.jar
+</project>
