@@ -1,0 +1,32 @@
+name: Build JAR (Ant)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"   # change to 11 or 21 if your code needs it
+
+      - name: Build with Ant
+        run: |
+          ant -noinput -buildfile build.xml clean jar
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: |
+            dist/*.jar
