@@ -14,13 +14,14 @@ jobs:
 
     steps:
       - name: Checkout repository
+      # v4 works; just make sure submodules aren't needed
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Set up JDK 11 (safer for db4o)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '11'
 
       - name: Install Ant and show versions
         run: |
@@ -29,25 +30,15 @@ jobs:
           java -version
           ant -version
 
-      - name: Build with Ant (try common targets, verbose, UTF-8)
+      - name: List Ant targets
+        run: |
+          ant -p || true
+
+      - name: Build (force clean + jar, verbose, UTF-8)
         run: |
           set -e
-          echo "Listing Ant targets..."
-          ant -p || true
-          echo "---- Attempt 1: clean jar ----"
-          if ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log; then
-            echo "Built with target 'jar'"
-          else
-            echo "---- Attempt 2: clean dist ----"
-            if ant -noinput -Dfile.encoding=UTF-8 -v clean dist | tee -a build.log; then
-              echo "Built with target 'dist'"
-            else
-              echo "---- Attempt 3: clean package ----"
-              ant -noinput -Dfile.encoding=UTF-8 -v clean package | tee -a build.log
-              echo "Built with target 'package'"
-            fi
-          fi
-          echo "---- Look for 'destfile=' lines (where jars get written) ----"
+          ant -noinput -Dfile.encoding=UTF-8 -v clean jar | tee build.log
+          echo "---- If a jar was written, you'll see 'destfile=' lines above ----"
           grep -i "destfile=.*\.jar" -n build.log || true
 
       - name: Upload build log (always)
@@ -57,31 +48,24 @@ jobs:
           name: build-log
           path: build.log
 
-      - name: List any JARs that were built
+      - name: List any JARs found
         if: always()
         run: |
-          echo "Searching for JARs in repo (including unusual locations)..."
+          echo "Searching for JARs..."
           find . -type f -name "*.jar" -print | sort || true
 
-      - name: Upload ALL JARs (repo-wide)
+      - name: Upload app JAR (expected path)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: dist/manola.jar
+          if-no-files-found: warn
+
+      - name: Upload all jars (fallback)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: all-jars
-          path: dist/manola.jar
-
-      - name: Upload dist directory (fallback)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-dir
-          path: dist/**
-          if-no-files-found: warn
-
-      - name: Upload build/classes (fallback)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-classes
-          path: build/classes/**
-          if-no-files-found: warn
+          path: |
+            **/*.jar
