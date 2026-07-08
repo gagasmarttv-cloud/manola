@@ -6,6 +6,10 @@ on:
       - maps-review-agent-apk-build
     paths-ignore:
       - 'apkbuild/output/**'
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
@@ -74,6 +78,7 @@ jobs:
             if [ "$VERIFY_RC" -eq 0 ]; then
               cp "$APK" "$OUTPUT/MapsReviewAgent-Motorola.apk"
               sha256sum "$APK" | tee "$OUTPUT/sha256.txt"
+              cd "$GITHUB_WORKSPACE"
               python3 - <<'PY'
 from pathlib import Path
 import base64
