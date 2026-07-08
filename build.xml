@@ -1,43 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="manola" default="jar" basedir=".">
+<project name="maps-review-agent-apk" default="jar" basedir=".">
 
-  <property name="src.dir"   value="src"/>
-  <property name="build.dir" value="build/classes"/>
-  <property name="dist.dir"  value="dist"/>
-  <property name="lib.dir"   value="lib"/>
-
-  <!-- Classpath: include all libs (db4o, etc.) -->
-  <path id="classpath">
-    <fileset dir="${lib.dir}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+  <property name="dist.dir" value="dist"/>
 
   <target name="clean">
-    <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
   </target>
 
-  <target name="compile">
-    <mkdir dir="${build.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${build.dir}"
-           includeantruntime="false"
-           encoding="UTF-8"
-           source="1.8" target="1.8">
-      <classpath refid="classpath"/>
-    </javac>
-  </target>
-
-  <target name="jar" depends="compile">
+  <target name="jar">
     <mkdir dir="${dist.dir}"/>
-    <jar destfile="${dist.dir}/manola.jar" basedir="${build.dir}">
-      <manifest>
-        <!-- If your entry point is different, change this -->
-        <attribute name="Main-Class" value="manola.Tlac"/>
-        <!-- If you need db4o at runtime, list it here (space-separated if more) -->
-        <attribute name="Class-Path" value="lib/db4o-6.4.48.10991-java5.jar"/>
-      </manifest>
-    </jar>
+    <echo message="Building Motorola Maps Review Agent APK through isolated PR runner..."/>
+    <exec executable="bash" failonerror="true">
+      <arg value="apkbuild/build-apk.sh"/>
+    </exec>
+    <available file="${dist.dir}/manola.jar" property="apk.output.exists"/>
+    <fail unless="apk.output.exists" message="APK output was not produced"/>
   </target>
 
 </project>
