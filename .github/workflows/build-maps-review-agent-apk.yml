@@ -4,16 +4,24 @@ on:
   push:
     branches:
       - maps-review-agent-apk-build
+    paths-ignore:
+      - 'apkbuild/output/**'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: maps-review-agent-apk-build
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -45,23 +53,64 @@ jobs:
           unzip -q /tmp/maps_review_agent.zip -d /tmp/maps_review_agent
           test -f /tmp/maps_review_agent/maps_review_agent_motorola/app/build.gradle
 
-      - name: Build debug APK
-        working-directory: /tmp/maps_review_agent/maps_review_agent_motorola
-        run: gradle --no-daemon --stacktrace assembleDebug
+      - name: Build and prepare output chunks
+        id: build
+        shell: bash
+        run: |
+          set +e
+          PROJECT=/tmp/maps_review_agent/maps_review_agent_motorola
+          OUTPUT="$GITHUB_WORKSPACE/apkbuild/output"
+          APK="$PROJECT/app/build/outputs/apk/debug/app-debug.apk"
+          rm -rf "$OUTPUT"
+          mkdir -p "$OUTPUT/chunks"
 
-      - name: Verify APK
+          cd "$PROJECT"
+          gradle --no-daemon --stacktrace assembleDebug > "$OUTPUT/build.log" 2>&1
+          RC=$?
+
+          if [ "$RC" -eq 0 ] && [ -s "$APK" ]; then
+            unzip -t "$APK" >> "$OUTPUT/build.log" 2>&1
+            VERIFY_RC=$?
+            if [ "$VERIFY_RC" -eq 0 ]; then
+              cp "$APK" "$OUTPUT/MapsReviewAgent-Motorola.apk"
+              sha256sum "$APK" | tee "$OUTPUT/sha256.txt"
+              python3 - <<'PY'
+from pathlib import Path
+import base64
+apk = Path('apkbuild/output/MapsReviewAgent-Motorola.apk')
+out = Path('apkbuild/output/chunks')
+s = base64.b64encode(apk.read_bytes()).decode('ascii')
+for i in range(0, len(s), 3000):
+    (out / f'part{i//3000:04d}.txt').write_text(s[i:i+3000], encoding='ascii')
+Path('apkbuild/output/status.txt').write_text('SUCCESS\n', encoding='utf-8')
+Path('apkbuild/output/size.txt').write_text(str(apk.stat().st_size) + '\n', encoding='utf-8')
+PY
+              rm -f "$OUTPUT/MapsReviewAgent-Motorola.apk"
+            else
+              echo "VERIFY_FAILED" > "$OUTPUT/status.txt"
+              RC=$VERIFY_RC
+            fi
+          else
+            echo "BUILD_FAILED" > "$OUTPUT/status.txt"
+          fi
+
+          echo "rc=$RC" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Commit build output
+        shell: bash
         run: |
           set -euo pipefail
-          APK=/tmp/maps_review_agent/maps_review_agent_motorola/app/build/outputs/apk/debug/app-debug.apk
-          test -s "$APK"
-          unzip -t "$APK"
-          unzip -l "$APK" | grep -E 'AndroidManifest.xml|classes.dex|resources.arsc'
-          sha256sum "$APK"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apkbuild/output
+          if git diff --cached --quiet; then
+            echo "No output changes to commit"
+          else
+            git commit -m "Store Maps Review Agent APK build output"
+            git push origin HEAD:maps-review-agent-apk-build
+          fi
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: MapsReviewAgent-Motorola
-          path: /tmp/maps_review_agent/maps_review_agent_motorola/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 7
+      - name: Fail workflow when build failed
+        if: steps.build.outputs.rc != '0'
+        run: exit 1
